@@ -4,7 +4,7 @@
 # Script: schedule_eks_scale.sh
 #
 # Copyright (c) 2024 Alessandro Annini
-# MIT License - See LICENSE file for details
+# GPL-3.0 license - See LICENSE file for details
 # GitHub: https://github.com/AlessandroAnnini/aws-ssm-resource-scheduler
 #
 # Description:
