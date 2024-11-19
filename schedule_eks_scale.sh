@@ -302,7 +302,8 @@ manage_association() {
           --association-id "$association_id" \
           --name "$document_name" \
           --schedule-expression "$schedule_expression" \
-          --parameters "$parameters"
+          --parameters "$parameters" \
+          --apply-only-at-cron-interval
       fi
     else
       if [ "$action" == "create" ]; then
@@ -313,7 +314,8 @@ manage_association() {
           --name "$document_name" \
           --association-name "$association_name" \
           --schedule-expression "$schedule_expression" \
-          --parameters "$parameters"
+          --parameters "$parameters" \
+          --apply-only-at-cron-interval
       fi
     fi
     echo "Association $association_name processed."
