@@ -2,7 +2,7 @@
 
 Welcome to the **AWS Resource Scheduling Scripts** repository! This collection of scripts automates the scheduling of AWS resources using AWS Systems Manager State Manager. By automating resource management, you can optimize costs while ensuring your resources are available when needed.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-GPL3.0-yellow.svg)](/LICENSE)
 
 ## 🎯 Features
 
