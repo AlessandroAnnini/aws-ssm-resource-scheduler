@@ -554,11 +554,11 @@ for DAY in "${DAYS[@]}"; do
 
   # Create or Update Start Association
   echo "Setting up automatic start on $DAY with State Manager..."
-  manage_association "create" "$START_ASSOCIATION_NAME" "AWS-StartRdsInstance" "$START_SCHEDULE" "$PARAMETERS"
+  manage_association "create" "$START_ASSOCIATION_NAME" "AWS-StartRdsInstance" "$START_SCHEDULE" "$PARAMETERS" ""
 
   # Create or Update Stop Association
   echo "Setting up automatic stop on $DAY with State Manager..."
-  manage_association "create" "$STOP_ASSOCIATION_NAME" "AWS-StopRdsInstance" "$STOP_SCHEDULE" "$PARAMETERS"
+  manage_association "create" "$STOP_ASSOCIATION_NAME" "AWS-StopRdsInstance" "$STOP_SCHEDULE" "$PARAMETERS" ""
 
 done
 
