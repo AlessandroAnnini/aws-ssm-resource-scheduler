@@ -49,8 +49,8 @@ INSTANCE_ID=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="RDSStartStopPolicy-$(INSTANCE_ID)"
-ROLE_NAME="RDSStartStopRole-$(INSTANCE_ID)"
+POLICY_NAME="RDSStartStopPolicy"
+ROLE_NAME="RDSStartStopRole"
 
 # State Manager Association names (we'll append the instance ID and day to the name)
 STOP_ASSOCIATION_NAME_PREFIX="StopRDSInstance"
@@ -322,6 +322,11 @@ if [ -z "$INSTANCE_ID" ]; then
   exit 1
 fi
 
+# update POLICY_NAME adding the instance ID
+POLICY_NAME="${POLICY_NAME}_${INSTANCE_ID}"
+# update ROLE_NAME adding the instance ID
+ROLE_NAME="${ROLE_NAME}_${INSTANCE_ID}"
+
 #######################################
 # Main Script Execution
 #######################################
@@ -339,15 +344,7 @@ echo "Starting RDS start/stop scheduling script..."
 POLICY_ARN="arn:aws:iam::$(aws sts get-caller-identity --profile "$AWS_PROFILE" --query Account --output text):policy/$POLICY_NAME"
 
 if [ "$DELETE_MODE" = true ]; then
-  #######################################
-  # Deletion Mode
-  #######################################
-
-  echo "Running in deletion mode..."
-
-  # Loop over each day to delete associations
-  for DAY in "${DAYS[@]}"; do
-    echo "Processing deletions for $DAY..."
+  #######################################INSTANCE_ID
 
     # Association names including INSTANCE_ID
     START_ASSOCIATION_NAME="${START_ASSOCIATION_NAME_PREFIX}_${INSTANCE_ID}_${DAY}"
@@ -384,8 +381,6 @@ if [ "$DELETE_MODE" = true ]; then
     else
       echo "Association $STOP_ASSOCIATION_NAME not found."
     fi
-
-  done
 
   # Delete IAM role
   echo "Deleting IAM role and policy..."

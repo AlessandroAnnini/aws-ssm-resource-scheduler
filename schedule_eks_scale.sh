@@ -50,8 +50,8 @@ CLUSTER_NAME=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="EKSScalePolicy-${CLUSTER_NAME}"
-ROLE_NAME="EKSScaleRole-${CLUSTER_NAME}"
+POLICY_NAME="EKSScalePolicy"
+ROLE_NAME="EKSScaleRole"
 
 # State Manager Association names (we'll append the cluster name, node group name, and day)
 SCALE_DOWN_ASSOCIATION_NAME_PREFIX="ScaleDownEKS"
@@ -381,6 +381,11 @@ if [ -z "$CLUSTER_NAME" ]; then
   echo "Error: EKS cluster name not specified. Use -i or --cluster-name to set it."
   exit 1
 fi
+
+# update POLICY_NAME adding the cluster name
+POLICY_NAME="${POLICY_NAME}_${CLUSTER_NAME}"
+# update ROLE_NAME adding the cluster name
+ROLE_NAME="${ROLE_NAME}_${CLUSTER_NAME}"
 
 #######################################
 # Main Script Execution

@@ -49,8 +49,8 @@ INSTANCE_ID=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="EC2StartStopPolicy-$(INSTANCE_ID)"
-ROLE_NAME="EC2StartStopRole-$(INSTANCE_ID)"
+POLICY_NAME="EC2StartStopPolicy"
+ROLE_NAME="EC2StartStopRole"
 
 # State Manager Association names (we'll append the instance ID and day to the name)
 STOP_ASSOCIATION_NAME_PREFIX="StopEC2Instance"
@@ -322,6 +322,11 @@ if [ -z "$INSTANCE_ID" ]; then
   exit 1
 fi
 
+# update POLICY_NAME adding the instance ID
+POLICY_NAME="${POLICY_NAME}_${INSTANCE_ID}"
+# update ROLE_NAME adding the instance ID
+ROLE_NAME="${ROLE_NAME}_${INSTANCE_ID}"
+
 #######################################
 # Main Script Execution
 #######################################
@@ -527,24 +532,7 @@ rm "$TRUST_POLICY_DOCUMENT_FILE"
 ASSUME_ROLE_ARN=$(aws iam get-role \
   --profile "$AWS_PROFILE" \
   --region "$AWS_REGION" \
-  --role-name "$ROLE_NAME" \
-  --query 'Role.Arn' \
-  --output text)
-
-echo "Using IAM Role ARN: $ASSUME_ROLE_ARN"
-
-#######################################
-# Steps 4 & 5: Set up the automatic stop and start with State Manager.
-#######################################
-
-# Parameters for the associations
-PARAMETERS="{\"InstanceId\":[\"$INSTANCE_ID\"],\"AutomationAssumeRole\":[\"$ASSUME_ROLE_ARN\"]}"
-
-# Loop over each day to create start and stop associations
-for DAY in "${DAYS[@]}"; do
-  echo "Processing associations for $DAY..."
-
-  # Association names including INSTANCE_ID
+  --role-name "$ROLE_NAME" \# update POLICY_NAME adding the instance ID
   START_ASSOCIATION_NAME="${START_ASSOCIATION_NAME_PREFIX}_${INSTANCE_ID}_${DAY}"
   STOP_ASSOCIATION_NAME="${STOP_ASSOCIATION_NAME_PREFIX}_${INSTANCE_ID}_${DAY}"
 
