@@ -49,8 +49,8 @@ INSTANCE_ID=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="EC2StartStopPolicy"
-ROLE_NAME="EC2StartStopRole"
+POLICY_NAME="EC2StartStopPolicy-$(INSTANCE_ID)"
+ROLE_NAME="EC2StartStopRole-$(INSTANCE_ID)"
 
 # State Manager Association names (we'll append the instance ID and day to the name)
 STOP_ASSOCIATION_NAME_PREFIX="StopEC2Instance"

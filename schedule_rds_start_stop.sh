@@ -49,8 +49,8 @@ INSTANCE_ID=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="RDSStartStopPolicy"
-ROLE_NAME="RDSStartStopRole"
+POLICY_NAME="RDSStartStopPolicy-$(INSTANCE_ID)"
+ROLE_NAME="RDSStartStopRole-$(INSTANCE_ID)"
 
 # State Manager Association names (we'll append the instance ID and day to the name)
 STOP_ASSOCIATION_NAME_PREFIX="StopRDSInstance"

@@ -50,8 +50,8 @@ CLUSTER_NAME=""
 DELETE_MODE=false
 
 # IAM Policy and Role names
-POLICY_NAME="EKSScalePolicy"
-ROLE_NAME="EKSScaleRole"
+POLICY_NAME="EKSScalePolicy-${CLUSTER_NAME}"
+ROLE_NAME="EKSScaleRole-${CLUSTER_NAME}"
 
 # State Manager Association names (we'll append the cluster name, node group name, and day)
 SCALE_DOWN_ASSOCIATION_NAME_PREFIX="ScaleDownEKS"
